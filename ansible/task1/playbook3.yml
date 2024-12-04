@@ -1,0 +1,11 @@
+---
+- name: Change MOTD
+  hosts: all
+  vars:
+    motd_message: "Hello World!"
+
+  tasks:
+    - name: Set the MOTD message
+      copy:
+        content: "{{ motd_message }}"
+        dest: /etc/motd

@@ -1,0 +1,11 @@
+---
+- name: Change MOTD with IP and hostname
+  hosts: all
+  vars:
+    motd_message: "Welcome! Your IP is {{ ansible_default_ipv4.address }} and hostname is {{ ansible_hostname }}. Have a great day, sysadmin!"
+
+  tasks:
+    - name: Set the MOTD message
+      copy:
+        content: "{{ motd_message }}"
+        dest: /etc/motd

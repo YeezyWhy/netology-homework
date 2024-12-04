@@ -1,0 +1,5 @@
+---
+- name: Deploy web server with role
+  hosts: all
+  roles:
+    - webserver_role

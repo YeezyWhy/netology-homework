@@ -1,0 +1,19 @@
+---
+- name: Download and extract archive
+  hosts: all
+  tasks:
+    - name: Download archive
+      get_url:
+        url: https://dlcdn.apache.org/httpd/httpd-2.4.62.tar.gz
+        dest: /tmp/apache.tgz
+
+    - name: Create directory for archive
+      file:
+        path: /opt/apache
+        state: directory
+
+    - name: Extract archive
+      unarchive:
+        src: /tmp/apache.tgz
+        dest: /opt/apache
+        remote_src: yes

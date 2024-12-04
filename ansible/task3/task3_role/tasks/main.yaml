@@ -1,0 +1,29 @@
+---
+- name: Install Apache web server
+  package:
+    name: httpd
+    state: present
+
+- name: Configure index.html
+  template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+  notify:
+    - restart apache
+
+- name: Ensure Apache is running and enabled
+  systemd:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: Open port 80 in firewall (if applicable)
+  firewalld:
+    service: http
+    permanent: yes
+    state: enabled
+
+- name: Check if the website is reachable
+  uri:
+    url: http://localhost/:80
+    status_code: 200
